@@ -3,13 +3,16 @@ defmodule HackerNewsAggregatorWeb.TopStoriesChannel do
 
   alias HackerNewsAggregator.Aggregator
 
+  alias HackerNewsAggregator.Utils.RateLimiter
   @impl true
   def join("top_stories:lobby", payload, socket) do
-    if authorized?(payload) do
-      send(self(), :after_join)
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
+    case RateLimiter.log(socket.assigns.ip_address) do
+      :ok ->
+        send(self(), :after_join)
+        {:ok, socket}
+
+      _ ->
+        {:error, %{reason: "rate limmeted"}}
     end
   end
 

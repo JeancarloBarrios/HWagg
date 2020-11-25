@@ -18,7 +18,7 @@ config :logger, level: :info
 
 config :hacker_news_aggregator, :sources, HackerNewsAggregator.Sources
 
-config :hacker_news_aggregator, :scraper_interval, 5 * 60 * 1_000
+config :hacker_news_aggregator, :scraper_interval, 300_000
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

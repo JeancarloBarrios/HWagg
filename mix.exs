@@ -41,8 +41,7 @@ defmodule HackerNewsAggregator.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:finch, "~> 0.5"},
-      {:gen_stage, "~> 1.0"},
-      {:plug_attack, "~> 0.3.0"}
+      {:gen_stage, "~> 1.0"}
     ]
   end
 

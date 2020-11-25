@@ -1,6 +1,7 @@
 defmodule HackerNewsAggregatorWeb.UserSocket do
   use Phoenix.Socket
 
+  alias HackerNewsAggregator.Utils.RateLimiter
   ## Channels
   # channel "room:*", HackerNewsAggregatorWeb.RoomChannel
   channel "top_stories:lobby", HackerNewsAggregatorWeb.TopStoriesChannel
@@ -17,8 +18,15 @@ defmodule HackerNewsAggregatorWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(_params, socket, connect_info) do
+    case get_ip_address(connect_info) |> RateLimiter.log() do
+      :ok ->
+        socket = assign(socket, :ip_address, get_ip_address(connect_info))
+        {:ok, socket}
+
+      _ ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -33,4 +41,23 @@ defmodule HackerNewsAggregatorWeb.UserSocket do
   # Returning `nil` makes this socket anonymous.
   @impl true
   def id(_socket), do: nil
+
+  defp get_ip_address(%{x_headers: headers_list}) do
+    header = Enum.find(headers_list, fn {key, _val} -> key == "x-real-ip" end)
+
+    case header do
+      nil ->
+        nil
+
+      {_key, value} ->
+        value
+
+      _ ->
+        nil
+    end
+  end
+
+  defp get_ip_address(_) do
+    nil
+  end
 end

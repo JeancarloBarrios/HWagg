@@ -3,6 +3,7 @@ defmodule HackerNewsAggregatorWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug HackerNewsAggregatorWeb.Plug.RateLimiterPlug
   end
 
   scope "/api", HackerNewsAggregatorWeb do
