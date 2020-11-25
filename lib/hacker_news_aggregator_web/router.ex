@@ -7,6 +7,8 @@ defmodule HackerNewsAggregatorWeb.Router do
 
   scope "/api", HackerNewsAggregatorWeb do
     pipe_through :api
+
+    get "/get-hacker-news-top-stories", AggregatorController, :top_stories
   end
 
   # Enables LiveDashboard only for development
