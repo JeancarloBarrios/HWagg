@@ -21,7 +21,9 @@ defmodule HackerNewsAggregator.Application do
        pools: %{
          "https://hacker-news.firebaseio.com" => [size: 10, count: 5]
        }},
-      HackerNewsAggregator.Aggregator.AggregatorSupervisor
+      HackerNewsAggregator.Aggregator.AggregatorSupervisor,
+      {PlugAttack.Storage.Ets,
+       name: HackerNewsAggregator.PlugAttack.Storage, clean_period: 60_000}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
