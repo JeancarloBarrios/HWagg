@@ -1,19 +1,12 @@
-# defmodule HackerNewsAggregator.AggregatorTest do
-#   use ExUnit.Case
+defmodule HackerNewsAggregator.AggregatorTest do
+  use ExUnit.Case
 
-#   setup do
-#     {:ok, _, socket} =
-#       HackerNewsAggregatorWeb.UserSocket
-#       |> socket("user_id", %{some: :assign})
-#       |> subscribe_and_join(HackerNewsAggregatorWeb.TopStoriesChannel, "top_stories:lobby")
+  alias HackerNewsAggregator.Aggregator
 
-#     %{socket: socket}
-#   end
+  test "test data is being saved" do
+    stories = Aggregator.get_hacker_news_top_stories()
+    assert stories |> Enum.count() > 0
+  end
 
-#   test "test hacker news api get top item" do
-#     amount = 5
-#     items = HackerNewsClient.get_top_items(amount)
-#     item_count = Enum.count(items)
-#     assert amount == item_count
-#   end
-# end
+  # TO test generate_update I will connect to the socket and given the in memory change with random check for a broadcast in update_action
+end

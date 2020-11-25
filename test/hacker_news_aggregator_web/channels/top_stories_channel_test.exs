@@ -10,22 +10,5 @@ defmodule HackerNewsAggregatorWeb.TopStoriesChannelTest do
     %{socket: socket}
   end
 
-  # test "join fetches stories" %{socket: socket} do
-  #   assert_push "fetch_stories", []
-  # end
-
-  # test "ping replies with status ok", %{socket: socket} do
-  #   ref = push(socket, "ping", %{"hello" => "there"})
-  #   assert_reply ref, :ok, %{"hello" => "there"}
-  # end
-
-  # test "shout broadcasts to top_stories:lobby", %{socket: socket} do
-  #   push(socket, "shout", %{"hello" => "all"})
-  #   assert_broadcast "shout", %{"hello" => "all"}
-  # end
-
-  # test "broadcasts are pushed to the client", %{socket: socket} do
-  #   broadcast_from!(socket, "broadcast", %{"some" => "data"})
-  #   assert_push "broadcast", %{"some" => "data"}
-  # end
+  # TO test generate_update I will connect to the socket and given the in memory change with random check for a broadcast in update_action
 end
