@@ -8,3 +8,7 @@ config :hacker_news_aggregator, HackerNewsAggregatorWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :hacker_news_aggregator, :sources, HackerNewsAggregator.Sources.InMemory
+
+config :hacker_news_aggregator, :scraper_interval, 1_000
