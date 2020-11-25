@@ -21,7 +21,6 @@ defmodule HackerNewsAggregator.Sources.HackerNewsClient do
     |> Enum.take(amount)
     |> Task.async_stream(&get_item/1, max_concurrency: 50, on_timeout: :kill_task)
     |> Enum.map(fn {:ok, item} -> item end)
-    |> validate_count(amount)
   end
 
   @doc """
@@ -38,24 +37,13 @@ defmodule HackerNewsAggregator.Sources.HackerNewsClient do
     |> decode_response
   end
 
-  @spec decode_response({:ok, %Response{body: binary}}) :: map()
-  defp decode_response({:ok, %Response{body: body}}) do
-    body
-    |> Jason.decode!(keys: :atoms)
-  end
-
+  @spec decode_response({:ok, %Response{body: binary | nil}}) :: map()
   defp decode_response({:ok, %Response{body: nil}}) do
     nil
   end
 
-  @spec validate_count(list(), integer) :: list()
-  defp validate_count(items, amount) do
-    case Enum.count(items) == amount do
-      true ->
-        items
-
-      false ->
-        raise "Did no retrieve all items"
-    end
+  defp decode_response({:ok, %Response{body: body}}) do
+    body
+    |> Jason.decode!(keys: :atoms)
   end
 end
