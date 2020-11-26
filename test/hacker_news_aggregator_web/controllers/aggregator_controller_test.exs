@@ -10,6 +10,7 @@ defmodule HackerNewsAggregatorWeb.AggregatorControllerTest do
       response = get(conn, "/api/get-hacker-news-top-stories")
       assert response.status == 200
       assert response.resp_body |> Jason.decode!() |> is_list()
+      assert get(conn, "/api/get-hacker-news-top-stories?page=100").status == 404
     end
   end
 end

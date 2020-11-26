@@ -19,7 +19,7 @@ defmodule HackerNewsAggregator.Aggregator.AggregatorStoreEts do
   def handle_events(events, _from, state) do
     Enum.each(events, fn x -> store_stories(x) end)
 
-    {:noreply, [events], state}
+    {:noreply, events, state}
   end
 
   @spec store_stories(list()) :: boolean

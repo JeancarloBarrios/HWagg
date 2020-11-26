@@ -22,7 +22,7 @@ defmodule HackerNewsAggregator.Application do
          "https://hacker-news.firebaseio.com" => [size: 10, count: 5]
        }},
       HackerNewsAggregator.Aggregator.AggregatorSupervisor,
-      HackerNewsAggregator.Utils.RateLimiter
+      HackerNewsAggregator.RateLimiter.RateLimiterEts
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

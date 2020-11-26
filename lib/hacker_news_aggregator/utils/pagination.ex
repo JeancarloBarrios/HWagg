@@ -6,4 +6,8 @@ defmodule HackerNewsAggregator.Utils.Pagination do
     list
     |> Enum.slice(@page_size * (page - 1), @page_size)
   end
+
+  def paginate(_list, page) when page < 0 do
+    []
+  end
 end

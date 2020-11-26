@@ -1,7 +1,7 @@
 defmodule HackerNewsAggregatorWeb.UserSocket do
   use Phoenix.Socket
 
-  alias HackerNewsAggregator.Utils.RateLimiter
+  alias HackerNewsAggregator.RateLimiter
   ## Channels
   # channel "room:*", HackerNewsAggregatorWeb.RoomChannel
   channel "top_stories:lobby", HackerNewsAggregatorWeb.TopStoriesChannel

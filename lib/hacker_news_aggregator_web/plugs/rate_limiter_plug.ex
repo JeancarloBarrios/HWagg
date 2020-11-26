@@ -5,7 +5,7 @@ defmodule HackerNewsAggregatorWeb.Plug.RateLimiterPlug do
   # given plug.
   # use Plug.Builder
   import Plug.Conn
-  alias HackerNewsAggregator.Utils.RateLimiter
+  alias HackerNewsAggregator.RateLimiter
 
   def init(opts) do
     opts

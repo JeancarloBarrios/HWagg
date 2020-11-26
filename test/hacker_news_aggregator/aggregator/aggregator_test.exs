@@ -2,11 +2,10 @@ defmodule HackerNewsAggregator.AggregatorTest do
   use ExUnit.Case
 
   alias HackerNewsAggregator.Aggregator
+  alias HackerNewsAggregator.Sources.InMemory
 
   test "test data is being saved" do
     stories = Aggregator.get_hacker_news_top_stories()
-    assert stories |> Enum.count() > 0
+    assert stories |> Enum.count() == InMemory.hacker_news_api_top_stories!(5) |> Enum.count()
   end
-
-  # TO test generate_update I will connect to the socket and given the in memory change with random check for a broadcast in update_action
 end

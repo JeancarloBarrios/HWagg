@@ -1,12 +1,10 @@
-defmodule HackerNewsAggregator.Utils.RateLimiter do
+defmodule HackerNewsAggregator.RateLimiter.RateLimiterEts do
   use GenServer
   require Logger
 
   @max_per_minute 5
   @sweep_after :timer.seconds(60)
   @tab :rate_limiter_requests
-
-  ## Client
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
@@ -19,7 +17,7 @@ defmodule HackerNewsAggregator.Utils.RateLimiter do
     end
   end
 
-  ## Server
+  @impl true
   def init(_) do
     :ets.new(@tab, [:set, :named_table, :public, read_concurrency: true, write_concurrency: true])
     schedule_sweep()

@@ -3,7 +3,7 @@ defmodule HackerNewsAggregatorWeb.TopStoriesChannel do
 
   alias HackerNewsAggregator.Aggregator
 
-  alias HackerNewsAggregator.Utils.RateLimiter
+  alias HackerNewsAggregator.RateLimiter
   @impl true
   def join("top_stories:lobby", payload, socket) do
     case RateLimiter.log(socket.assigns.ip_address) do

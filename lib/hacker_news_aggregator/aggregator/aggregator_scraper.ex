@@ -19,6 +19,7 @@ defmodule HackerNewsAggregator.Aggregator.AggregatorScraper do
   end
 
   def handle_info(:work, state) do
+    Logger.debug("Fetching Stories")
     top_stories = sources().hacker_news_api_top_stories!(50)
     schedule_retrival()
 

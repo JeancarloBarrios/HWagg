@@ -2,12 +2,14 @@ defmodule HackerNewsAggregatorWeb.AggregatorController do
   use HackerNewsAggregatorWeb, :controller
 
   alias HackerNewsAggregator.Aggregator
-  alias HackerNewsAggregator.Utils.Pagination
+  alias HackerNewsAggregator.Utils
 
-  def top_stories(conn, %{"page" => page} = params) do
+  def top_stories(conn, params) do
+    page = Map.get(params, "page", "1")
+
     top_stories =
       Aggregator.get_hacker_news_top_stories()
-      |> Pagination.paginate(String.to_integer(page))
+      |> Utils.paginate(String.to_integer(page))
 
     case top_stories do
       [] ->
@@ -18,13 +20,5 @@ defmodule HackerNewsAggregatorWeb.AggregatorController do
       _ ->
         json(conn, top_stories)
     end
-  end
-
-  def top_stories(conn, _params) do
-    top_stories =
-      Aggregator.get_hacker_news_top_stories()
-      |> Pagination.paginate(1)
-
-    json(conn, top_stories)
   end
 end

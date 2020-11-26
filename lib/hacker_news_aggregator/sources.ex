@@ -4,17 +4,34 @@ defmodule HackerNewsAggregator.Sources do
 
   """
   alias HackerNewsAggregator.Sources.HackerNewsClient
+
+  @doc """
+  hacker_news_api_top_stories get top stories up to 500 from hacker news
+  ## parameter
+     - ammount -> integer between 0-500
+  """
   @spec hacker_news_api_top_stories(integer) :: list
   def hacker_news_api_top_stories(amount) do
     HackerNewsClient.get_top_items(amount)
   end
 
+  @doc """
+  hacker_news_api_top_stories! get top stories up to 500 from hacker news
+  raises error if data not valid
+  ## parameter
+     - ammount -> integer between 0-500
+  """
   @spec hacker_news_api_top_stories!(integer) :: list
   def hacker_news_api_top_stories!(amount) do
     HackerNewsClient.get_top_items(amount)
     |> validate_count(amount)
   end
 
+  @doc """
+  hacker_news_api_get_item get a single storie from hacker news
+  ## parameter
+     - id -> integer 
+  """
   @spec hacker_news_api_get_item(integer) :: map()
   def hacker_news_api_get_item(id) do
     HackerNewsClient.get_item(id)
